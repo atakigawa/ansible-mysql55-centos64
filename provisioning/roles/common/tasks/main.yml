@@ -1,0 +1,7 @@
+---
+- name: Import repos
+  command: rpm -Uvh {{ item.value.url }} creates={{ yum_repos_dir }}/{{ item.value.repo_file }}
+  with_dict: rpm_repos
+
+- name: Install replace plugin
+  command: yum -y install yum-plugin-replace creates={{ yum_plugin_dir }}/replace.conf

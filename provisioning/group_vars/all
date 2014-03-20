@@ -1,0 +1,5 @@
+---
+
+mysql_port: 3306
+mysql_dbuser: root
+mysql_upassword: passw0rd

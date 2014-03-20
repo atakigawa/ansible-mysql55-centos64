@@ -1,0 +1,30 @@
+---
+#guard for not executing replace command more than once
+- name: Check if old mysql-libs is present
+  shell: yum list installed | grep -i mysql55
+  register: mysql55_present
+  ignore_errors: true
+  changed_when: false
+
+#first install the old mysql, then replace it with 5.5
+- name: Install old Mysql
+  yum: name=mysql-server state=present
+  when: mysql55_present|failed
+
+- name: Install the latest mysql-libs
+  yum: name=mysql-libs state=latest enablerepo=remi
+  when: mysql55_present|failed
+
+#replace mysql5.1 to mysql5.5
+#this replaces mysql-server and mysql to 5.5, too
+- name: Replace old mysql with mysql5.5
+  command: yum -y replace mysql-libs --replace-with mysql55-libs
+  when: mysql55_present|failed
+
+- name: Create Mysql configuration file
+  template: src=my.cnf.j2 dest=/etc/my.cnf
+  notify:
+  - restart mysql
+
+- name: Start Mysql Service
+  service: name=mysqld state=started enabled=true
