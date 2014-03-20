@@ -1,6 +1,6 @@
-# Install mysql5.5 in CentOS6 by ansible.
+# Install mysql5.5 on CentOS6 by ansible.
 
-Just an ansible version of [this site](http://blog.iphoting.com/blog/2012/06/19/upgrading-to-mysql-5-dot-5-on-centos-6), so check it out for further understandings of each task.
+An ansible version of [this site](http://blog.iphoting.com/blog/2012/06/19/upgrading-to-mysql-5-dot-5-on-centos-6), so check it out for further understandings of each task.
 
 This playbook only does minimum stuff, not meant to be used as is in serial applications.
 Intended be copied into other playbook and modified as needed.
